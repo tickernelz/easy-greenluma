@@ -1,0 +1,7 @@
+.vscode/*
+bin/*
+build/*
+dist/*
+encUser.py
+appid.json
+user.json
