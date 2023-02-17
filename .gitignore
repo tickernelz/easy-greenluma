@@ -7,3 +7,4 @@ dist/*
 encUser.py
 appid.json
 user.json
+config.json

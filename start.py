@@ -1,7 +1,9 @@
 from datetime import datetime
+from tkinter import *
 from tkinter import messagebox
 from pkg_resources import parse_version
 import subprocess
+import tkinter as tk
 import os
 import shutil
 import distutils
@@ -15,7 +17,7 @@ data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/d
 owner = "tickernelz"
 repo_master = "easy-greenluma"
 branch_master = "master"
-version = "1.1.0"
+version = "1.1.1"
 
 
 def run_as_admin(argv=None, debug=False):
@@ -97,6 +99,13 @@ def check_for_updates():
                         return True
     return False
 
+def get_steam_path():
+    config_json = "config.json"
+    if os.path.isfile(config_json):
+        json_data = json.load(open(config_json))
+        return json_data["steamPath"]
+    return None
+
 
 def update():
     update_data = check_for_updates()
@@ -110,6 +119,9 @@ if __name__ == "__main__":
 
     # Check updates
     update()
+    
+    # Get the Steam path
+    steam_path = get_steam_path()
 
     # Kill the steam.exe process
     subprocess.run(["taskkill", "/F", "/IM", "steam.exe"],
@@ -120,39 +132,39 @@ if __name__ == "__main__":
 
     # Remove the existing Steam directories
     dirs_to_remove = [
-        "C:\\Program Files (x86)\\Steam\\AppList",
-        "C:\\Program Files (x86)\\Steam\\AppOwnershipTickets",
-        "C:\\Program Files (x86)\\Steam\\EncryptedAppTickets"
+        steam_path + "\\AppList",
+        steam_path + "\\AppOwnershipTickets",
+        steam_path + "\\EncryptedAppTickets"
     ]
     for dir_to_remove in dirs_to_remove:
         shutil.rmtree(dir_to_remove, ignore_errors=True)
 
     # Create the Steam directories
     dirs_to_create = [
-        "C:\\Program Files (x86)\\Steam\\AppList",
-        "C:\\Program Files (x86)\\Steam\\AppOwnershipTickets",
-        "C:\\Program Files (x86)\\Steam\\EncryptedAppTickets"
+        steam_path + "\\AppList",
+        steam_path + "\\AppOwnershipTickets",
+        steam_path + "\\EncryptedAppTickets"
     ]
     for dir_to_create in dirs_to_create:
         os.makedirs(dir_to_create, exist_ok=True)
 
     # Copy the folders to the Steam directories
     folders_to_copy = [
-        ("bin", "C:\\Program Files (x86)\\Steam\\bin"),
-        ("GreenLuma2020_Files", "C:\\Program Files (x86)\\Steam\\GreenLuma2020_Files")
+        ("bin", steam_path + "\\bin"),
+        ("GreenLuma2020_Files", steam_path + "\\GreenLuma2020_Files"),
     ]
 
     folders_to_copy2 = [
-        ("AppList", "C:\\Program Files (x86)\\Steam\\AppList"),
-        ("AppOwnershipTickets", "C:\\Program Files (x86)\\Steam\\AppOwnershipTickets"),
-        ("EncryptedAppTickets", "C:\\Program Files (x86)\\Steam\\EncryptedAppTickets")
+        ("AppList", steam_path + "\\AppList"),
+        ("AppOwnershipTickets", steam_path + "\\AppOwnershipTickets"),
+        ("EncryptedAppTickets", steam_path + "\\EncryptedAppTickets")
     ]
 
     files_to_copy = [
-        ("DLLInjector.exe", "C:\\Program Files (x86)\\Steam"),
-        ("DLLInjector.ini", "C:\\Program Files (x86)\\Steam"),
-        ("GreenLuma_2020_x64.dll", "C:\\Program Files (x86)\\Steam"),
-        ("GreenLuma_2020_x86.dll", "C:\\Program Files (x86)\\Steam")
+        ("DLLInjector.exe", steam_path),
+        ("DLLInjector.ini", steam_path),
+        ("GreenLuma_2020_x64.dll", steam_path),
+        ("GreenLuma_2020_x86.dll", steam_path),
     ]
 
     for src, dst in folders_to_copy:
@@ -165,5 +177,5 @@ if __name__ == "__main__":
         shutil.copy(resource_path(src), dst)
 
     # Start the DLLInjector.exe process
-    os.chdir('C:\\Program Files (x86)\\Steam\\')
+    os.chdir(steam_path)
     subprocess.Popen(["DLLInjector.exe"], shell=True)

@@ -1,6 +1,8 @@
 from zipfile import ZipFile
+from tkinter import *
 from tkinter import messagebox
 import shutil
+import tkinter as tk
 import requests
 import os
 import sys
@@ -32,7 +34,8 @@ class Update:
             "Accept": "application/vnd.github.v3+json"
         }
         self.files = [
-            'Hogwarts Legacy.exe'
+            'Hogwarts Legacy.exe',
+            'config.json',
         ]
         self.folders = [
             'AppList',
@@ -88,6 +91,10 @@ class Update:
         folder_name = self.get_folder_name()
         for file in self.files:
             try:
+                # check if config.json exists
+                if file == "config.json":
+                    if os.path.isfile(f"{self.get_app_path().get('path')}/{file}"):
+                        continue
                 shutil.move(f"{folder_name}/{file}", f"{self.get_app_path().get('path')}/{file}")
             except Exception as e:
                 print(f"Error moving file: {e}")
