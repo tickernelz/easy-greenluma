@@ -7,6 +7,12 @@
                 "branchName": "zhafron_store_1",
                 "exp": 1678403245,
                 "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_1"
+            },
+            "lipretypo": {
+                "repoName": "990080",
+                "branchName": "lipretypo",
+                "exp": 1678446864,
+                "repo": "https://api.github.com/repos/tickernelz/990080/branches/lipretypo"
             }
         }
     }
