@@ -20,15 +20,15 @@ class Update:
 
             return os.path.join(base_path, relative_path)
         
-        def load_user(data_path=resource_path("user.json")):
+        def load_user(data_path="config.json"):
             if os.path.isfile(data_path):
                 json_data = json.load(open(data_path))
                 return json_data
             return None
         
-        self.owner = load_user(resource_path("user.json")).get("owner")
-        self.repo = load_user(resource_path("user.json")).get("repo")
-        self.branch = load_user(resource_path("user.json")).get("branch")
+        self.owner = load_user("config.json").get("owner")
+        self.repo = load_user("config.json").get("repo")
+        self.branch = load_user("config.json").get("branch")
         self.url = f"https://api.github.com/repos/{self.owner}/{self.repo}/zipball/{self.branch}"
         self.headers = {
             "Accept": "application/vnd.github.v3+json"

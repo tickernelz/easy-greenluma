@@ -8,7 +8,7 @@ a = Analysis(
     ['start.py'],
     pathex=[],
     binaries=[],
-    datas=[('bin', 'bin'), ('GreenLuma2020_Files', 'GreenLuma2020_Files'), ('DLLInjector.exe', '.'), ('DLLInjector.ini', '.'), ('GreenLuma_2020_x64.dll', '.'), ('GreenLuma_2020_x86.dll', '.'), ('appid.json', '.'), ('user.json', '.')],
+    datas=[('bin', 'bin'), ('GreenLuma2020_Files', 'GreenLuma2020_Files'), ('DLLInjector.exe', '.'), ('DLLInjector.ini', '.'), ('GreenLuma_2020_x64.dll', '.'), ('GreenLuma_2020_x86.dll', '.'), ('appid.json', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
