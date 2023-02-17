@@ -17,7 +17,7 @@ data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/d
 owner = "tickernelz"
 repo_master = "easy-greenluma"
 branch_master = "master"
-version = "1.1.1"
+version = "1.1.2"
 
 
 def run_as_admin(argv=None, debug=False):
@@ -66,7 +66,7 @@ def check_version():
     return False
 
 
-def load_user(data_path=resource_path("user.json")):
+def load_user(data_path="config.json"):
     if os.path.isfile(data_path):
         json_data = json.load(open(data_path))
         return json_data["username"]
