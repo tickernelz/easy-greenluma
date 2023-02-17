@@ -3,6 +3,8 @@
     "ids": {
         "990080": {
             "zhafron_store_1": {
+                "repoName": "990080",
+                "branchName": "zhafron_store_1",
                 "exp": 1678403245,
                 "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_1"
             }

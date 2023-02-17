@@ -1,4 +1,5 @@
 from datetime import datetime
+from pkg_resources import parse_version
 import subprocess
 import os
 import shutil
@@ -8,6 +9,16 @@ import win32com.client
 import time
 import requests
 import json
+from update import Update
+
+data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/data.json"
+owner = "tickernelz"
+repo_master = "easy-greenluma"
+repo_app = False
+branch_master = "master"
+branch_app = False
+version = "1.0.0"
+
 
 def run_as_admin(argv=None, debug=False):
     shell = win32com.client.Dispatch("WScript.Shell")
@@ -17,7 +28,8 @@ def run_as_admin(argv=None, debug=False):
         import sys
         sys.stderr.write("Running %r as admin\n" % (argv,))
     shell.Run(" ".join('"%s"' % arg for arg in argv), 0, True)
-    
+
+
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
@@ -26,33 +38,47 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+
 def check_internet():
     try:
         requests.get("http://www.google.com", timeout=3)
         return True
     except Exception:
         return False
-    
-def load_data(id, username):
-    data = resource_path("data.json")
-    if os.path.isfile(data):
-        json_data = json.load(open(data))
+
+
+def load_data(id, username, checkVersion=False):
+    data = requests.get(data_url, timeout=3)
+    if data.status_code == 200:
+        json_data = data.json()
+        if checkVersion:
+            return json_data.get("version")
         appid_obj = json_data['ids'].get(id)
         if appid_obj:
             return appid_obj.get(username)
-        
-        
+
+
+def check_version():
+    current_version = load_data(None, None, checkVersion=True)
+    if current_version:
+        if parse_version(current_version) > parse_version(version):
+            return True
+    return False
+
+
 def load_user(data_path=resource_path("user.json")):
     if os.path.isfile(data_path):
         json_data = json.load(open(data_path))
         return json_data["username"]
     return None
-    
+
+
 def load_appid(data_path=resource_path("appid.json")):
     if os.path.isfile(data_path):
         json_data = json.load(open(data_path))
         return json_data["id"]
     return None
+
 
 def check_for_updates():
     is_internet_available = check_internet()
@@ -62,26 +88,41 @@ def check_for_updates():
         if appid and username:
             user_data = load_data(appid, username)
             if user_data:
+                repo_app = user_data["repoName"]
+                branch_app = user_data["branchName"]
                 exp = datetime.fromtimestamp(user_data["exp"])
                 repo_url = user_data["repo"]
                 datetime_now = datetime.now()
-                if exp > datetime_now:
-                    try:
-                        r = requests.get(repo_url, timeout=3)
-                        if r.status_code == 200:
-                            return r.json()
-                    except Exception:
-                        return None
-                
-    
+                version = check_version()
+                if exp > datetime_now or version:
+                    return {
+                        'owner': owner,
+                        'repo': repo_app,
+                        'branch': branch_app,
+                        'url': repo_url,
+                    }
+    return None
+
+
+def update():
+    update_data = check_for_updates()
+    if update_data:
+        update = Update(update_data["owner"],
+                        update_data["repo"], update_data["branch"])
+        result = update.update()
+        if result:
+            print("Please restart the application")
+            sys.exit(0)
+
+
 if __name__ == "__main__":
-    
+
     # Check updates
-    check_for_updates()
-    
+    update()
+
     # Kill the steam.exe process
     subprocess.run(["taskkill", "/F", "/IM", "steam.exe"],
-                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     # Wait for 5 seconds
     time.sleep(5)
@@ -109,7 +150,7 @@ if __name__ == "__main__":
         ("bin", "C:\\Program Files (x86)\\Steam\\bin"),
         ("GreenLuma2020_Files", "C:\\Program Files (x86)\\Steam\\GreenLuma2020_Files")
     ]
-    
+
     folders_to_copy2 = [
         ("AppList", "C:\\Program Files (x86)\\Steam\\AppList"),
         ("AppOwnershipTickets", "C:\\Program Files (x86)\\Steam\\AppOwnershipTickets"),
@@ -125,7 +166,7 @@ if __name__ == "__main__":
 
     for src, dst in folders_to_copy:
         distutils.dir_util.copy_tree(resource_path(src), dst)
-        
+
     for src, dst in folders_to_copy2:
         distutils.dir_util.copy_tree(src, dst)
 
