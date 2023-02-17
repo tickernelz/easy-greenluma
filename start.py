@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import messagebox
 from pkg_resources import parse_version
 import subprocess
 import os
@@ -9,15 +10,12 @@ import win32com.client
 import time
 import requests
 import json
-from update import Update
 
 data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/data.json"
 owner = "tickernelz"
 repo_master = "easy-greenluma"
-repo_app = False
 branch_master = "master"
-branch_app = False
-version = "1.0.0"
+version = "1.1.0"
 
 
 def run_as_admin(argv=None, debug=False):
@@ -88,31 +86,24 @@ def check_for_updates():
         if appid and username:
             user_data = load_data(appid, username)
             if user_data:
-                repo_app = user_data["repoName"]
-                branch_app = user_data["branchName"]
                 exp = datetime.fromtimestamp(user_data["exp"])
-                repo_url = user_data["repo"]
                 datetime_now = datetime.now()
                 version = check_version()
-                if exp > datetime_now or version:
-                    return {
-                        'owner': owner,
-                        'repo': repo_app,
-                        'branch': branch_app,
-                        'url': repo_url,
-                    }
-    return None
+                if exp < datetime_now or version:
+                    # Show the update message
+                    mb1 = messagebox.askyesno(
+                        'Update Available', 'An update is available. Do you want to update?')
+                    if mb1 == True:
+                        return True
+    return False
 
 
 def update():
     update_data = check_for_updates()
     if update_data:
-        update = Update(update_data["owner"],
-                        update_data["repo"], update_data["branch"])
-        result = update.update()
-        if result:
-            print("Please restart the application")
-            sys.exit(0)
+        # Run update.exe inside main directory then exit
+        subprocess.Popen(os.path.join(os.getcwd(), "update.exe"))
+        sys.exit()
 
 
 if __name__ == "__main__":

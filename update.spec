@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(
-    ['start.py'],
+    ['update.py'],
     pathex=[],
     binaries=[],
-    datas=[('bin', 'bin'), ('GreenLuma2020_Files', 'GreenLuma2020_Files'), ('DLLInjector.exe', '.'), ('DLLInjector.ini', '.'), ('GreenLuma_2020_x64.dll', '.'), ('GreenLuma_2020_x86.dll', '.'), ('appid.json', '.'), ('user.json', '.')],
+    datas=[('user.json', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='Hogwarts Legacy',
+    name='update',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -41,5 +41,4 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['hogwarts.ico'],
 )
