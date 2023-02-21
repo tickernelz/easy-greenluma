@@ -1,31 +1,33 @@
 {
-    "version": "1.1.2",
-    "ids": {
-        "990080": {
-            "zhafron_store_1": {
-                "repoName": "990080",
-                "branchName": "zhafron_store_1",
-                "exp": 1678403245,
-                "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_1"
-            },
-            "lipretypo": {
-                "repoName": "990080",
-                "branchName": "lipretypo",
-                "exp": 1678446864,
-                "repo": "https://api.github.com/repos/tickernelz/990080/branches/lipretypo"
-            },
-            "zhafron_store_2": {
-                "repoName": "990080",
-                "branchName": "zhafron_store_2",
-                "exp": 1678628793,
-                "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_2"
-            },
-            "zhafron_store_3": {
-                "repoName": "668580",
-                "branchName": "zhafron_store_3",
-                "exp": 1678837146,
-                "repo": "https://api.github.com/repos/tickernelz/668580/branches/zhafron_store_3"
-            }
-        }
+  "version": "1.1.2",
+  "ids": {
+    "990080": {
+      "zhafron_store_1": {
+        "repoName": "990080",
+        "branchName": "zhafron_store_1",
+        "exp": 1678403245,
+        "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_1"
+      },
+      "lipretypo": {
+        "repoName": "990080",
+        "branchName": "lipretypo",
+        "exp": 1678446864,
+        "repo": "https://api.github.com/repos/tickernelz/990080/branches/lipretypo"
+      },
+      "zhafron_store_2": {
+        "repoName": "990080",
+        "branchName": "zhafron_store_2",
+        "exp": 1678628793,
+        "repo": "https://api.github.com/repos/tickernelz/990080/branches/zhafron_store_2"
+      }
+    },
+    "668580": {
+      "zhafron_store_3": {
+        "repoName": "668580",
+        "branchName": "zhafron_store_3",
+        "exp": 1678837146,
+        "repo": "https://api.github.com/repos/tickernelz/668580/branches/zhafron_store_3"
+      }
     }
+  }
 }
