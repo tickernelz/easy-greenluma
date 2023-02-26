@@ -17,7 +17,7 @@ data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/d
 owner = "tickernelz"
 repo_master = "easy-greenluma"
 branch_master = "master"
-version = "1.1.2"
+version = "1.2.0"
 
 
 def run_as_admin(argv=None, debug=False):
@@ -73,10 +73,10 @@ def load_user(data_path="config.json"):
     return None
 
 
-def load_appid(data_path=resource_path("appid.json")):
+def load_appid(data_path="config.json"):
     if os.path.isfile(data_path):
         json_data = json.load(open(data_path))
-        return json_data["id"]
+        return json_data["repo"]
     return None
 
 

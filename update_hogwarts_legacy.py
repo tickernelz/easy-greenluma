@@ -34,7 +34,7 @@ class Update:
             "Accept": "application/vnd.github.v3+json"
         }
         self.files = [
-            'Atomic Heart.exe',
+            'Hogwarts Legacy.exe',
             'config.json',
         ]
         self.folders = [

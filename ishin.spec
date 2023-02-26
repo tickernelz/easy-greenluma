@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(
-    ['update.py'],
+    ['start.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('bin', 'bin'), ('GreenLuma2020_Files', 'GreenLuma2020_Files'), ('DLLInjector.exe', '.'), ('DLLInjector.ini', '.'), ('GreenLuma_2020_x64.dll', '.'), ('GreenLuma_2020_x86.dll', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='update',
+    name='Like a Dragon Ishin!',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -41,4 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['ishin.ico'],
 )

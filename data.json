@@ -1,5 +1,5 @@
 {
-  "version": "1.1.2",
+  "version": "1.2.0",
   "ids": {
     "990080": {
       "zhafron_store_1": {
@@ -27,6 +27,14 @@
         "branchName": "zhafron_store_3",
         "exp": 1678837146,
         "repo": "https://api.github.com/repos/tickernelz/668580/branches/zhafron_store_3"
+      }
+    },
+    "1805480": {
+      "zhafron_store_4": {
+        "repoName": "1805480",
+        "branchName": "zhafron_store_4",
+        "exp": 1679213148,
+        "repo": "https://api.github.com/repos/tickernelz/1805480/branches/zhafron_store_4"
       }
     }
   }

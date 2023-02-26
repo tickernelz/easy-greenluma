@@ -34,7 +34,7 @@ class Update:
             "Accept": "application/vnd.github.v3+json"
         }
         self.files = [
-            'Hogwarts Legacy.exe',
+            'Like a Dragon Ishin!.exe',
             'config.json',
         ]
         self.folders = [
@@ -160,4 +160,5 @@ class Update:
 
 if __name__ == "__main__":
     update = Update()
+    messagebox.showinfo("Update", "Starting update...")
     update.update()
