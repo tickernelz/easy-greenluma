@@ -17,7 +17,7 @@ data_url = "https://raw.githubusercontent.com/tickernelz/easy-greenluma/master/d
 owner = "tickernelz"
 repo_master = "easy-greenluma"
 branch_master = "master"
-version = "1.2.1"
+version = "1.2.2"
 
 
 def run_as_admin(argv=None, debug=False):
